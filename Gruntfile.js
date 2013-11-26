@@ -35,10 +35,18 @@ module.exports = function (grunt) {
     pdiffy: {
       default_options: {
         options: {
+					capture: {
+						shotSize: {
+							width: "all",
+							height: "all"
+						}
+					},
+					compare: {
+						threshold: 32,
+						mode: 'block'
+					}
         },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+				sources: ["http://google.com", "http://yahoo.com"]
       },
       custom_options: {
         options: {

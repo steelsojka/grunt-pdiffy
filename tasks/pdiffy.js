@@ -10,6 +10,9 @@
 
 module.exports = function (grunt) {
 
+	var _ = require("lodash");
+	var pdiffy = require("pdiffy");
+
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
@@ -21,31 +24,18 @@ module.exports = function (grunt) {
       separator: ', '
     });
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function (file) {
-      // Concat specified files.
-      var src = file.src.filter(function (filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function (filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+		var done = this.async();
 
-      // Handle options.
-      src += options.punctuation;
+		var onCompareComplete = function(shot) {
+			console.log(shot.data);
+			done();
+		};
 
-      // Write the destination file.
-      grunt.file.write(file.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + file.dest + '" created.');
-    });
+		pdiffy.compare({
+			paths: this.data.sources,
+			captureOptions: this.options.capture,
+			diffOptions: this.options.compare,
+			callback: onCompareComplete
+		});	
   });
-
 };

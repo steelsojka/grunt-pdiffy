@@ -5,6 +5,10 @@
   "homepage": "",
   "repository": "",
   "bugs": "/issues",
+	"dependencies": {
+		"pdiffy": "~0.1.3",
+		"lodash": "~2.4.0"
+	},
   "author": {
     "name": "Steven Sojka",
     "email": "steelsojka@gmail.com",

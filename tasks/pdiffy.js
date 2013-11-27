@@ -24,8 +24,7 @@ module.exports = function (grunt) {
 		this.data.callback = this.data.callback || function(data, session, done) { done() };
 
 		var onRunComplete = function(session) {
-			var data = _(session.shots).pluck("data").compact().value();
-			this.data.callback(data, session, done);
+			this.data.callback(session, done);
 		};
 
 		pdiffy.run(this.data, onRunComplete.bind(this));	

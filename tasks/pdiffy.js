@@ -12,30 +12,22 @@ module.exports = function (grunt) {
 
 	var _ = require("lodash");
 	var pdiffy = require("pdiffy");
+	var noop = function() {};
 
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('pdiffy', 'Perceptual difference tool for grunt', function () {
 
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
-
 		var done = this.async();
 
-		var onCompareComplete = function(shot) {
-			console.log(shot.data);
-			done();
+		this.data.callback = this.data.callback || function(data, session, done) { done() };
+
+		var onRunComplete = function(session) {
+			var data = _(session.shots).pluck("data").compact().value();
+			this.data.callback(data, session, done);
 		};
 
-		pdiffy.compare({
-			paths: this.data.sources,
-			captureOptions: this.options.capture,
-			diffOptions: this.options.compare,
-			callback: onCompareComplete
-		});	
+		pdiffy.run(this.data, onRunComplete.bind(this));	
   });
 };

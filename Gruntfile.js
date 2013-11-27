@@ -35,18 +35,18 @@ module.exports = function (grunt) {
     pdiffy: {
       default_options: {
         options: {
-					capture: {
-						shotSize: {
-							width: "all",
-							height: "all"
-						}
+					shotSize: {
+						width: "all",
+						height: "all"
 					},
-					compare: {
-						threshold: 32,
-						mode: 'block'
-					}
+					threshold: 32,
+					mode: 'block'
         },
-				sources: ["http://google.com", "http://yahoo.com"]
+				captures: [
+					{
+						url: ["http://hayneedle.com", "http://stage.hayneedle.local"]
+					} 
+				]
       },
       custom_options: {
         options: {

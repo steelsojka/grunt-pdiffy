@@ -6,7 +6,7 @@
   "repository": "",
   "bugs": "/issues",
 	"dependencies": {
-		"pdiffy": "~0.1.3",
+		"pdiffy": "0.2.x",
 		"lodash": "~2.4.0"
 	},
   "author": {

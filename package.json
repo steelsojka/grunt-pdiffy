@@ -3,11 +3,10 @@
   "version": "0.0.1",
   "description": "Perceptual difference tool for grunt",
   "homepage": "",
-  "repository": "",
+  "repository": "https://github.com/steelsojka/grunt-pdiffy.git",
   "bugs": "/issues",
 	"dependencies": {
 		"pdiffy": "0.2.x",
-		"lodash": "~2.4.0"
 	},
   "author": {
     "name": "Steven Sojka",
@@ -15,7 +14,10 @@
     "url": "https://github.com/steelsojka"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "pdiffy",
+    "perceptual",
+    "difference"
   ],
   "main": "Gruntfile.js",
   "engines": {

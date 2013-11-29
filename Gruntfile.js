@@ -44,17 +44,14 @@ module.exports = function (grunt) {
         },
 				captures: [
 					{
-						url: ["http://hayneedle.com", "http://stage.hayneedle.local"]
+						url: ["http://yahoo.com", "http://google.com"]
 					} 
 				]
       },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
+      schedule_options: {
+        interval: 0.5,
+        captures: {
+          url: "http://yahoo.com"
         }
       }
     },
@@ -64,6 +61,10 @@ module.exports = function (grunt) {
       tests: ['test/*_test.js']
     }
 
+  });
+
+  grunt.event.on("pdiffy", function() {
+    console.log(arguments);
   });
 
   // Actually load this plugin's task(s).

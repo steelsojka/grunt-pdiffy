@@ -10,9 +10,7 @@
 
 module.exports = function (grunt) {
 
-	var _ = require("lodash");
 	var pdiffy = require("pdiffy");
-	var noop = function() {};
 
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
@@ -21,10 +19,11 @@ module.exports = function (grunt) {
 
 		var done = this.async();
 
-		this.data.callback = this.data.callback || function(data, session, done) { done() };
-
 		var onRunComplete = function(session) {
-			this.data.callback(session, done);
+			grunt.event.emit("pdiffy", this.target, session, done);
+
+      // If running a schedule or interval don't call done
+      !this.data.schedule && !this.data.interval && done();
 		};
 
 		pdiffy.run(this.data, onRunComplete.bind(this));	

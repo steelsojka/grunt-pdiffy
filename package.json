@@ -5,9 +5,9 @@
   "homepage": "",
   "repository": "https://github.com/steelsojka/grunt-pdiffy.git",
   "bugs": "/issues",
-	"dependencies": {
-		"pdiffy": "0.2.x"
-	},
+  "dependencies": {
+    "pdiffy": "0.2.x"
+  },
   "author": {
     "name": "Steven Sojka",
     "email": "steelsojka@gmail.com",

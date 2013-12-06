@@ -50,9 +50,9 @@ module.exports = function (grunt) {
       },
       schedule_options: {
         interval: 0.5,
-        captures: {
+        captures: [{
           url: "http://yahoo.com"
-        }
+        }]
       }
     },
 

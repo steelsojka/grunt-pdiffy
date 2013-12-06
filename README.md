@@ -21,65 +21,86 @@ grunt.loadNpmTasks('grunt-pdiffy');
 
 ### Overview
 In your project's Gruntfile, add a section named `pdiffy` to the data object passed into `grunt.initConfig()`.
-
 ```js
 grunt.initConfig({
   pdiffy: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
+    "your_target": {
+      // Regular pdiffy config
+    }
+  }
+});
 ```
+### Config
 
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+The config is the same object you would pass into pdiffy.
+View [pdiffy documentation](https://github.com/steelsojka/pdiffy) for more information.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Basic Difference
+In this example, we perform a difference between our local site and production site
+everytime the task is run.
 
 ```js
 grunt.initConfig({
   pdiffy: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    prod: {
+      output: "./differences/session.pdiffy",
+      timestamp: true,
+      captures: [{
+        url: ["http://localhost", "http://mysite.com"]
+      }]
+    }
+  }
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Schedules
+In this example, we perform a difference every hour. This is usually something
+you would want to run as a background task.
 
 ```js
 grunt.initConfig({
   pdiffy: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    target: {
+      output: "./difference/session.pdiffy",
+      schedule: {
+        minutes: 0
+      },
+      captures: [{
+        url: ["http://localhost", "http://mysite.com"]
+      }]
+    }
+  }
 })
+```
+#### Intervals
+In this example, we perform a difference every 5 minutes. This is usually something
+you would want to run as a background task.
+
+```js
+grunt.initConfig({
+  pdiffy: {
+    target: {
+      output: "./difference/session.pdiffy",
+      interval: 5,
+      captures: [{
+        url: ["http://localhost", "http://mysite.com"]
+      }]
+    }
+  }
+})
+```
+
+### Events
+When a job is finished the data can get passed to have custom handling.
+The `pdiffy` event is fired and passed 3 parameters, the target, resulting session data, and a done callback to 
+terminate the grunt task.
+
+```js
+grunt.event.on('pdiffy', function(target, session, done) {
+  // Session data contains the same data as would get output to a file
+});
 ```
 
 ## Contributing
